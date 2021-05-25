@@ -9,6 +9,8 @@ var stand1,stand2;
 var ball;
 var slingShot;
 var polygon_img;
+var polygon
+
 function preload(){
   polygon_img=loadImage("polygon.png");
 }
@@ -20,7 +22,7 @@ function setup() {
   ground = new Ground();
   stand1 = new Stand(390,300,250,10);
   stand2 = new Stand(700,350,250,10);
-
+  
   //level one
   block1 = new Block(300,275,30,40);
   console.log(block1);
@@ -91,7 +93,15 @@ block43 = new Block(715,165,30,40);
 //tower 2 level 7
 
 block44 = new Block(700,115,30,40);
+
+polygon = Bodies.circle(50,200,20);
+  World.add(world,polygon);
+
+  slingShot = new SlingShot(this.polygon,{x:100,y:200});
+
+
 }
+
 function draw() {
   background(56,44,44); 
  
@@ -156,4 +166,19 @@ block42.display();
 block43.display();
 fill("lightpurple")
 block44.display();
+
+slingShot.display();
+imageMode(CENTER)
+  image(polygon_img ,polygon.position.x,polygon.position.y,40,40);
+
+  
 }
+function mouseDragged(){
+  Matter.Body.setPosition(this.polygon,{x:mouseX,y:mouseY});
+}
+function mouseReleased(){
+  slingShot.fly();
+}
+
+
+
